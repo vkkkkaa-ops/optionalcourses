@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optional courses</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        nav {
+            background: white;
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            border-bottom: 3px solid #3498db;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .nav-tab:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            color: #2c3e50;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .action-btn.delete {
+            color: #e74c3c;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        select, input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .grade-input {
+            width: 60px;
+            text-align: center;
+        }
+        
+        .save-btn {
+            background: #27ae60;
+            margin-top: 20px;
+        }
+        
+        .save-btn:hover {
+            background: #219653;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="./logo.png" class="logo">
+                <div class="logo-text">Optional courses</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+}
+</style>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">250</div>
+                <div class="stat-label">Всего обучающихся</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">15</div>
+                <div class="stat-label">Всего дисциплин</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">4.2</div>
+                <div class="stat-label">Средняя успеваемость</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Не выполнили минимум</div>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-tabs">
+                <li class="nav-tab active" data-tab="students">Обучающиеся</li>
+                <li class="nav-tab" data-tab="disciplines">Дисциплины</li>
+                <li class="nav-tab" data-tab="progress">Успеваемость</li>
+                <li class="nav-tab" data-tab="reports">Отчёты</li>
+            </ul>
+        </nav>
+
+        <!-- Секция "Обучающиеся" -->
+        <section id="students" class="content-section active">
+            <div class="section-header">
+                <h2 class="section-title">Управление обучающимися</h2>
+                <button class="btn">Добавить обучающегося</button>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Код</th>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>Телефон</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>Мурадян</td>
+                        <td>Роберт</td>
+                        <td>Русланович</td>
+                        <td>+7(999)123-45-67</td>
+                        <td>
+                            <button class="action-btn">Ред.</button>
+                            <button class="action-btn delete">Уд.</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Едленко</td>
+                        <td>Мария</td>
+                        <td>Сергеевна</td>
+                        <td>+7(999)987-65-43</td>
+                        <td>
+                            <button class="action-btn">Ред.</button>
+                            <button class="action-btn delete">Уд.</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Таранов</td>
+                        <td>Алексей</td>
+                        <td>Васильевич</td>
+                        <td>+7(999)456-78-90</td>
+                        <td>
+                            <button class="action-btn">Ред.</button>
+                            <button class="action-btn delete">Уд.</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Секция "Дисциплины" -->
+        <section id="disciplines" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Управление дисциплинами</h2>
+                <button class="btn">Добавить дисциплину</button>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Код</th>
+                        <th>Наименование</th>
+                        <th>Объем (лек/пр/лаб)</th>
+                        <th>Преподаватель</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>D01</td>
+                        <td>Основы Python</td>
+                        <td>20/30/10</td>
+                        <td>Таранов А.В.</td>
+                        <td>
+                            <button class="action-btn">Ред.</button>
+                            <button class="action-btn delete">Уд.</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>D02</td>
+                        <td>Биоинформатика</td>
+                        <td>30/20/25</td>
+                        <td>Иванова Л.П.</td>
+                        <td>
+                            <button class="action-btn">Ред.</button>
+                            <button class="action-btn delete">Уд.</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>D03</td>
+                        <td>Введение в Data Science</td>
+                        <td>40/20/40</td>
+                        <td>Петров И.С.</td>
+                        <td>
+                            <button class="action-btn">Ред.</button>
+                            <button class="action-btn delete">Уд.</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Секция "Успеваемость" -->
+        <section id="progress" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Ведомость успеваемости</h2>
+            </div>
+            
+            <div class="filters">
+                <div>
+                    <label for="semester">Семестр:</label>
+                    <select id="semester">
+                        <option>Весна 2024</option>
+                        <option>Осень 2023</option>
+                        <option>Весна 2023</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="discipline">Дисциплина:</label>
+                    <select id="discipline">
+                        <option>Основы Python</option>
+                        <option>Биоинформатика</option>
+                        <option>Введение в Data Science</option>
+                    </select>
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Код</th>
+                        <th>ФИО обучающегося</th>
+                        <th>Оценка (2-5)</th>
+                        <th>Примечания</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>Мурадян Роберт Русланович</td>
+                        <td><input type="number" class="grade-input" min="2" max="5" value="5"></td>
+                        <td><input type="text" placeholder="Примечания"></td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Едленко Мария Сергеевна</td>
+                        <td><input type="number" class="grade-input" min="2" max="5" value="4"></td>
+                        <td><input type="text" placeholder="Примечания"></td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Таранов Алексей Васильевич</td>
+                        <td><input type="number" class="grade-input" min="2" max="5" value="3"></td>
+                        <td><input type="text" placeholder="Примечания"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <button class="btn save-btn">Сохранить оценки</button>
+        </section>
+
+        <!-- Секция "Отчёты" -->
+        <section id="reports" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Отчёты и аналитика</h2>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value">87%</div>
+                    <div class="stat-label">Успеваемость по Python</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">92%</div>
+                    <div class="stat-label">Успеваемость по Биоинформатике</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">78%</div>
+                    <div class="stat-label">Успеваемость по Data Science</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Отличников в семестре</div>
+                </div>
+            </div>
+            
+            <h3 style="margin: 20px 0 10px;">Статистика по курсам</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дисциплина</th>
+                        <th>Кол-во обучающихся</th>
+                        <th>Средний балл</th>
+                        <th>% успеваемости</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Основы Python</td>
+                        <td>45</td>
+                        <td>4.3</td>
+                        <td>87%</td>
+                    </tr>
+                    <tr>
+                        <td>Биоинформатика</td>
+                        <td>32</td>
+                        <td>4.6</td>
+                        <td>92%</td>
+                    </tr>
+                    <tr>
+                        <td>Введение в Data Science</td>
+                        <td>38</td>
+                        <td>3.9</td>
+                        <td>78%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Система "Организация факультативных курсов" © 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Переключение между вкладками
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Убираем активный класс у всех вкладок
+                document.querySelectorAll('.nav-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Добавляем активный класс текущей вкладке
+                tab.classList.add('active');
+                
+                // Скрываем все секции
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Показываем выбранную секцию
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Обработка кнопки сохранения оценок
+        document.querySelector('.save-btn').addEventListener('click', () => {
+            alert('Оценки успешно сохранены!');
+        });
+        
+        // Обработка кнопок добавления
+        document.querySelectorAll('.btn:not(.save-btn)').forEach(btn => {
+            if (btn.textContent.includes('Добавить')) {
+                btn.addEventListener('click', () => {
+                    const section = btn.closest('.content-section').id;
+                    let entity = '';
+                    
+                    if (section === 'students') entity = 'обучающегося';
+                    else if (section === 'disciplines') entity = 'дисциплину';
+                    
+                    alert(`Форма добавления нового ${entity} будет открыта здесь`);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
